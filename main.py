@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
 
 
 app = FastAPI()
@@ -9,7 +9,7 @@ def read_root():
     return {"Hello": "World"}
 
 @app.get("/hello")
-def show_hello():
+def hello():
     with open("hello.html", "r", encoding="utf-8") as file:
         html_content = file.read()
 
@@ -18,3 +18,7 @@ def show_hello():
         status_code=200,
         media_type="text/html"
     )
+@app.get("/welcome")
+def welcome(name: str):
+    message = f"Welcome {name}"
+    return JSONResponse(content={"message": message}, status_code=200)
