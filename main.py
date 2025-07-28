@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, Header
 from starlette.responses import Response, JSONResponse
 from pydantic import BaseModel
 from typing import List
@@ -48,4 +48,12 @@ def put_player(player: Player):
                 players_db[i] = player
             return players_db
     players_db.append(player)
+    return players_db
+
+@app.get("/players-authorized", status_code=status.HTTP_200_OK)
+def get_players_authorized(authorization: str = Header(None)):
+    if authorization is None:
+        return JSONResponse(status_code=401, detail="Non autorisé : en-tête Authorization manquant")
+    elif authorization != "bon courage":
+        return JSONResponse(status_code=403, detail="Accès interdit : mauvais jeton")
     return players_db
