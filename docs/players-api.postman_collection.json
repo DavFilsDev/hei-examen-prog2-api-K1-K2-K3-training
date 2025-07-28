@@ -1,0 +1,108 @@
+{
+  "info": {
+    "name": "Players API - HEI Examen",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "12345678-1234-1234-1234-1234567890ab"
+  },
+  "item": [
+    {
+      "name": "Q1 - GET /welcome",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/welcome?name=David",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["welcome"],
+          "query": [
+            {
+              "key": "name",
+              "value": "David"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Q2 - POST /players",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  {\"Number\": 10, \"Name\": \"Messi\"},\n  {\"Number\": 7, \"Name\": \"Ronaldo\"}\n]"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/players",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["players"]
+        }
+      }
+    },
+    {
+      "name": "Q3 - GET /players",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/players",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["players"]
+        }
+      }
+    },
+    {
+      "name": "Q4 - PUT /players (update or add)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Number\": 10,\n  \"Name\": \"Lionel Messi\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/players",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["players"]
+        }
+      }
+    },
+    {
+      "name": "Q5 - GET /players-authorized (correct header)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "bon courage"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/players-authorized",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["players-authorized"]
+        }
+      }
+    }
+  ]
+}
