@@ -86,7 +86,7 @@
       }
     },
     {
-      "name": "Q5 - GET /players-authorized (correct header)",
+      "name": "Bonus - GET /players-authorized (correct header)",
       "request": {
         "method": "GET",
         "header": [
