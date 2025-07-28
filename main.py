@@ -39,3 +39,13 @@ def add_players(players: List[Player]):
 @app.get("/players", status_code=status.HTTP_200_OK)
 def get_players():
     return players_db
+
+@app.put("/players", status_code=status.HTTP_200_OK)
+def put_player(player: Player):
+    for i, existing_player in enumerate(players_db):
+        if existing_player.Number == player.Number:
+            if existing_player != player:
+                players_db[i] = player
+            return players_db
+    players_db.append(player)
+    return players_db
