@@ -53,7 +53,7 @@ def put_player(player: Player):
 @app.get("/players-authorized", status_code=status.HTTP_200_OK)
 def get_players_authorized(authorization: str = Header(None)):
     if authorization is None:
-        return JSONResponse(status_code=401, detail="Non autorisé : en-tête Authorization manquant")
+        return JSONResponse(status_code=401, content="Non autorisé : en-tête Authorization manquant")
     elif authorization != "bon courage":
-        return JSONResponse(status_code=403, detail="Accès interdit : mauvais jeton")
+        return JSONResponse(status_code=403, content="Accès interdit : mauvais jeton")
     return players_db
