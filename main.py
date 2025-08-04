@@ -2,7 +2,6 @@ from fastapi import FastAPI, status, Header
 from starlette.responses import Response, JSONResponse
 from pydantic import BaseModel
 from typing import List
-import json
 
 app = FastAPI()
 
