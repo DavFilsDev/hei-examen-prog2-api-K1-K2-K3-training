@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Players Management API
+  description: API for managing football players
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      description: Returns a simple message from the root
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    example: It's just the root
+  /hello:
+    get:
+      summary: Get HTML hello page
+      description: Returns an HTML page from hello.html file
+      responses:
+        '200':
+          description: HTML content returned
+          content:
+            text/html:
+              schema:
+                type: string
+  /welcome:
+    get:
+      summary: Welcome user
+      description: Returns a personalized welcome message
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Name of the user to welcome
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Welcome John
+  /players:
+    get:
+      summary: Get all players
+      description: Returns a list of all players in the database
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    post:
+      summary: Add new players
+      description: Add one or more new players to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Player'
+      responses:
+        '201':
+          description: Players created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    put:
+      summary: Update or add player
+      description: Update an existing player by number or add a new one if number doesn't exist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '200':
+          description: Player updated or added successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+  /players-authorized:
+    get:
+      summary: Get players (authorized)
+      description: Returns all players, requires authorization header
+      parameters:
+        - name: authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Authorization token - use "bon courage"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '401':
+          description: Missing Authorization header
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Non autorisé : en-tête Authorization manquant"
+        '403':
+          description: Invalid authorization token
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Accès interdit : mauvais jeton"
+components:
+  schemas:
+    Player:
+      type: object
+      required:
+        - Number
+        - Name
+      properties:
+        Number:
+          type: integer
+          description: Player's jersey number
+          minimum: 0
+        Name:
+          type: string
+          description: Player's full name
+      example:
+        Number: 10
+        Name: Lionel Messi
